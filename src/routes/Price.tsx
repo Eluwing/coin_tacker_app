@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import RankPrice from "./RankPrice";
@@ -115,10 +116,6 @@ interface IMarketInfo{
     volume_24h_change_24h: number;
 }
 
-interface IRankMarketInfo {
-    price:number;
-}
-
 interface ICoinDataProps{
     priceQuotesData? : IMarketInfo;
     rankInfoData : IRankItem[];
@@ -134,7 +131,7 @@ interface IRankItem{
     type:string;
 }
 
-    function Price(props:ICoinDataProps){
+function Price(props:ICoinDataProps){
     const [rankIdList, setRankIdList] = useState<any[]>([]);
     const percentageErrorValue: number = -999;
     
@@ -146,8 +143,7 @@ interface IRankItem{
     
     useEffect(()=>{  
         getRankIdList(props);
-
-    },[]);
+    },[props]);
 
     const priceCalculate = (percentage:number) => {
         let resultPrice = 0;

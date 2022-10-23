@@ -1,7 +1,7 @@
 import React from "react";
-import styled, { createGlobalStyle } from "styled-components";
-import Router from "./Router";
+import { createGlobalStyle } from "styled-components";
 import {ReactQueryDevtools} from "react-query/devtools";
+import Router from "./Router";
 
 const GrobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@1,300&display=swap');

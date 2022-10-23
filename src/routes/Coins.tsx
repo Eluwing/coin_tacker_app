@@ -1,4 +1,5 @@
-import { SyntheticEvent, useEffect, useState } from "react";
+import React from "react";
+import { SyntheticEvent} from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
@@ -59,16 +60,6 @@ interface ICoin{
     is_new: boolean;
     is_active: boolean;
     type: string;
-}
-
-interface IRank{
-    id:string;
-    is_active:boolean;
-    is_new:boolean;
-    name:string;
-    rank:string; 
-    symbol:string;
-    type:string;
 }
 
 function Coins(){
