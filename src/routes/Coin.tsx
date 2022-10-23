@@ -222,14 +222,14 @@ function Coin() {
     ["info",coinId], 
     ()=> fetchCoinInfo(coinId),
     {
-      // refetchOnWindowFocus: false,
+      refetchOnWindowFocus: false,
     });
   const { isLoading: tickersLoading, data: tickersData} = useQuery<PriceData>(
     ["tickers",coinId], 
     () =>fetchCoinTickers(coinId)
     ,
     {
-      // refetchOnWindowFocus: false,
+      refetchOnWindowFocus: false,
     });
 
   const loading = infoLoading || tickersLoading;
@@ -241,7 +241,6 @@ function Coin() {
     setRankData(state.rankInfoData);
   },[coinId])
 
-  console.log(rankData);
   return (
     <Container> 
       <Helmet>
