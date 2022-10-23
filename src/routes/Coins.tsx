@@ -2,7 +2,6 @@ import { SyntheticEvent, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { json } from "stream/consumers";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
 
@@ -48,9 +47,8 @@ const Loader = styled.span`
 `;
 
 const Img = styled.img`
-    width:25px;
-    height:25px;
-    margin-right:10px;
+    width:128px;
+    height:128px;
 `;
 
 interface ICoin{
@@ -89,11 +87,6 @@ function Coins(){
     const imgLoadErr = (e:SyntheticEvent<HTMLImageElement>) =>{
         e.currentTarget.src = "https://www.nteeth.com/wp-content/uploads/2013/11/dummy-image-square1.jpg";
     }
-    const [rankData, setRankData] = useState<IRank[]>();
-
-    useEffect(()=>{
-        //setRankData(data[0]);
-    });
 
     return(
         <Container>
@@ -118,11 +111,11 @@ function Coins(){
                                     rankInfoData: data.slice(0,4)
                                 }
                         }}>
-                            <img 
-                                src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLocaleLowerCase()}`}
+                            <Img 
+                                src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLocaleLowerCase()}`} 
                                 onError={imgLoadErr}
                             />
-                            {coin.name} &rarr;
+                            {coin.name}
                         </Link>                        
                     </Coin>
                 ))}
