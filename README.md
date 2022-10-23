@@ -12,6 +12,7 @@ npm install --save react-apexcharts apexcharts
 npm i react-helmet  
 npm i --save-dev @types/react-helmet  
 npm i moment @types/moment  
+npm i --save-dev @types/node  
 
 ## Test URL(git pages)
 https://eluwing.github.io/coin_tacker_app/
