@@ -18,6 +18,6 @@ https://eluwing.github.io/coin_tacker_app/
 
 ## ToDo List
 
-・if not found coin image to API, image is too large
-・state management(useContext)
-・error page(Especially when you can't get data from the API
+・if not found coin image to API, image is too large  
+・state management(useContext)  
+・error page(Especially when you can't get data from the API  
