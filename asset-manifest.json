@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/coin_tacker_app/static/js/main.fbb4d1f6.js",
+    "main.js": "/coin_tacker_app/static/js/main.0f70834f.js",
     "index.html": "/coin_tacker_app/index.html",
-    "main.fbb4d1f6.js.map": "/coin_tacker_app/static/js/main.fbb4d1f6.js.map"
+    "main.0f70834f.js.map": "/coin_tacker_app/static/js/main.0f70834f.js.map"
   },
   "entrypoints": [
-    "static/js/main.fbb4d1f6.js"
+    "static/js/main.0f70834f.js"
   ]
 }
