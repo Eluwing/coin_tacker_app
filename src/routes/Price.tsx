@@ -118,7 +118,7 @@ interface IMarketInfo{
 
 interface ICoinDataProps{
     priceQuotesData? : IMarketInfo;
-    rankInfoData : IRankItem[];
+    rankInfoData? : IRankItem[];
 }
 
 interface IRankItem{
@@ -136,7 +136,7 @@ function Price(props:ICoinDataProps){
     const percentageErrorValue: number = -999;
     
     const getRankIdList = (props: ICoinDataProps) => {
-        props.rankInfoData.map((item:any)=>{
+        props.rankInfoData?.map((item:any)=>{
             setRankIdList(prevArray => [...prevArray,item.id]);
         });
     }
@@ -193,8 +193,6 @@ function Price(props:ICoinDataProps){
             return propsValue.toFixed(0);
         }
     }
-
-    console.log(props.priceQuotesData);
 
     return(
         <>

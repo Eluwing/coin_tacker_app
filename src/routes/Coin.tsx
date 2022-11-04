@@ -13,6 +13,7 @@ import {
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
+import CommonErrorPage from "../error/CommonErrorPage";
 import Chart from "./Chart";
 import Price from "./Price";
 
@@ -217,75 +218,90 @@ function Coin() {
   const history = useHistory();
 
   const [ rankData, setRankData] = useState<IRankItem[]>([]);
+  const [ isError, setIsError] = useState<boolean>(false);
 
   useEffect(()=>{
-    setRankData(state.rankInfoData);
-  },[state.rankInfoData])
+    if(!Array.isArray(rankData)){
+      setRankData(state.rankInfoData);
+      setIsError(true);
+    }
+    else{
+      setIsError(false);
+    }
+  },[])
+
+  const CoinComponent = () =>{
+    return (
+      <Container> 
+        <Helmet>
+          <Title>
+            {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
+          </Title>
+        </Helmet>
+        <Header>
+          <Title>
+            {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
+          </Title>
+        </Header>
+        {loading ? (
+          <Loader>Loading...</Loader>
+        ) : (
+          <>
+            <Overview>
+              <OverviewItem>
+                <span>Rank:</span>
+                <span>{infoData?.rank}</span>
+              </OverviewItem>
+              <OverviewItem>
+                <span>Symbol:</span>
+                <span>${infoData?.symbol}</span>
+              </OverviewItem>
+              <OverviewItem>
+                <span>Price:</span>
+                <span>${tickersData?.quotes.USD.price.toFixed(3)}</span>
+              </OverviewItem>
+            </Overview>
+            <Description>{infoData?.description}</Description>
+            <Overview>
+              <OverviewItem>
+                <span>Total Suply:</span>
+                <span>{tickersData?.total_supply}</span>
+              </OverviewItem>
+              <OverviewItem>
+                <span>Max Supply:</span>
+                <span>{tickersData?.max_supply}</span>
+              </OverviewItem>
+            </Overview>
+  
+            <Tabs>
+              <Tab isActive={chartMatch !== null}>
+                <Link to={`/${coinId}/chart`}>Chart</Link>
+              </Tab>
+              <Tab isActive={priceMatch !== null}>
+                <Link to={`/${coinId}/price`}>Price</Link>
+              </Tab>
+            </Tabs>
+            
+            <Switch>
+              <Route path={`/:coinId/price`}>
+                <Price priceQuotesData={tickersData?.quotes.USD} rankInfoData={rankData}/>
+              </Route>
+              <Route path={`/:coinId/chart`}>
+                <Chart coinId={coinId}/>
+              </Route>
+            </Switch>
+            <BackButton onClick={()=> history.push("/")}>back</BackButton>
+            
+          </>
+        )}
+      </Container>
+    );
+
+
+  }
 
   return (
-    <Container> 
-      <Helmet>
-        <Title>
-          {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
-        </Title>
-      </Helmet>
-      <Header>
-        <Title>
-          {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
-        </Title>
-      </Header>
-      {loading ? (
-        <Loader>Loading...</Loader>
-      ) : (
-        <>
-          <Overview>
-            <OverviewItem>
-              <span>Rank:</span>
-              <span>{infoData?.rank}</span>
-            </OverviewItem>
-            <OverviewItem>
-              <span>Symbol:</span>
-              <span>${infoData?.symbol}</span>
-            </OverviewItem>
-            <OverviewItem>
-              <span>Price:</span>
-              <span>${tickersData?.quotes.USD.price.toFixed(3)}</span>
-            </OverviewItem>
-          </Overview>
-          <Description>{infoData?.description}</Description>
-          <Overview>
-            <OverviewItem>
-              <span>Total Suply:</span>
-              <span>{tickersData?.total_supply}</span>
-            </OverviewItem>
-            <OverviewItem>
-              <span>Max Supply:</span>
-              <span>{tickersData?.max_supply}</span>
-            </OverviewItem>
-          </Overview>
-
-          <Tabs>
-            <Tab isActive={chartMatch !== null}>
-              <Link to={`/${coinId}/chart`}>Chart</Link>
-            </Tab>
-            <Tab isActive={priceMatch !== null}>
-              <Link to={`/${coinId}/price`}>Price</Link>
-            </Tab>
-          </Tabs>
-          
-          <Switch>
-            <Route path={`/:coinId/price`}>
-              <Price priceQuotesData={tickersData?.quotes.USD} rankInfoData={rankData}/>
-            </Route>
-            <Route path={`/:coinId/chart`}>
-              <Chart coinId={coinId}/>
-            </Route>
-          </Switch>
-          <BackButton onClick={()=> history.push("/")}>back</BackButton>
-          
-        </>
-      )}
-    </Container>
+    isError? <CoinComponent />:<CommonErrorPage />
   );
 }
 export default Coin;
