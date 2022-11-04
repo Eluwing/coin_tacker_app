@@ -1,5 +1,6 @@
 import React from "react";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
+import CommonErrorPage from "./error/CommonErrorPage";
 import Coin from "./routes/Coin";
 import Coins from "./routes/Coins";
 
@@ -14,6 +15,7 @@ function Router(){
                 <Route path="/">
                     <Coins />
                 </Route>
+                <Route path="*" component={CommonErrorPage} />
             </Switch>
         </BrowserRouter>
         
