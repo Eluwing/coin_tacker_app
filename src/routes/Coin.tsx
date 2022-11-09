@@ -225,12 +225,12 @@ function Coin({isDark}:ICoinsProps) {
   const [ isError, setIsError] = useState<boolean>(false);
 
   useEffect(()=>{
-    if(!Array.isArray(rankData)){
+    if(Array.isArray(rankData)){
       setRankData(state?.rankInfoData);
-      setIsError(true);
+      setIsError(false);
     }
     else{
-      setIsError(false);
+      setIsError(true);
     }
   },[])
 
