@@ -2,9 +2,10 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import { fetchCoinTickers } from "../api";
 import moment from 'moment';
+import React from "react";
 
-interface ISign{
-    percentageValue:number;
+interface ISign {
+    percentageValue: number;
 }
 
 const Tab = styled.span`
@@ -65,6 +66,19 @@ const Overview = styled.div`
   margin-bottom: 5px;
 `;
 
+const OverviewItemCurrency = styled.span`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    span:first-child {
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    }
+`;
+
 const OverviewItem = styled.div<ISign>`
   display: flex;
   flex-direction: column;
@@ -77,7 +91,7 @@ const OverviewItem = styled.div<ISign>`
     margin-bottom: 5px;
   }
   span:nth-child(2) {
-    color: ${(props) =>(props.percentageValue>0? props.theme.positiveColor:props.theme.negativeColor)}; 
+    color: ${(props) => (props.percentageValue > 0 ? props.theme.positiveColor : props.theme.negativeColor)}; 
     margin-bottom: 5px;
   }
 `;
@@ -94,53 +108,53 @@ interface PriceData {
     first_data_at: string;
     last_updated: string;
     quotes: {
-      USD: {
-        ath_date: string;
-        ath_price: number;
-        market_cap: number;
-        market_cap_change_24h: number;
-        percent_change_1h: number;
-        percent_change_1y: number;
-        percent_change_6h: number;
-        percent_change_7d: number;
-        percent_change_12h: number;
-        percent_change_15m: number;
-        percent_change_24h: number;
-        percent_change_30d: number;
-        percent_change_30m: number;
-        percent_from_price_ath: number;
-        price: number;
-        volume_24h: number;
-        volume_24h_change_24h: number;
-      };
+        USD: {
+            ath_date: string;
+            ath_price: number;
+            market_cap: number;
+            market_cap_change_24h: number;
+            percent_change_1h: number;
+            percent_change_1y: number;
+            percent_change_6h: number;
+            percent_change_7d: number;
+            percent_change_12h: number;
+            percent_change_15m: number;
+            percent_change_24h: number;
+            percent_change_30d: number;
+            percent_change_30m: number;
+            percent_from_price_ath: number;
+            price: number;
+            volume_24h: number;
+            volume_24h_change_24h: number;
+        };
     };
-  }
-
-interface IRankPriceProps{
-    rankCoinId:string;
-    targetCoinPrice:number;
 }
 
-function RankPrice(props:IRankPriceProps){
+interface IRankPriceProps {
+    rankCoinId: string;
+    targetCoinPrice: number;
+}
+
+function RankPrice(props: IRankPriceProps) {
 
     const { rankCoinId } = props;
-    const { isLoading: tickersDataLoading, data: rankTickersData} = useQuery<PriceData>(
-        [rankCoinId+"Tickers",rankCoinId], 
-        () =>fetchCoinTickers(rankCoinId)
+    const { isLoading: tickersDataLoading, data: rankTickersData } = useQuery<PriceData>(
+        [rankCoinId + "Tickers", rankCoinId],
+        () => fetchCoinTickers(rankCoinId)
         ,
-        {   
-          staleTime: (60 * 1000) * 5,
-          refetchOnWindowFocus: false,
+        {
+            staleTime: (60 * 1000) * 5,
+            refetchOnWindowFocus: false,
         }
     );
 
-    const setSign = (percentage:number) => {
+    const setSign = (percentage: number) => {
         let sighPercentage = "";
 
-        if(percentage>=0){
+        if (percentage >= 0) {
             sighPercentage = "▴" + percentage;
         }
-        else if(percentage<0){
+        else if (percentage < 0) {
             sighPercentage = "▾" + percentage;
         }
 
@@ -148,7 +162,7 @@ function RankPrice(props:IRankPriceProps){
 
     }
 
-    const dateConvert = (date:string) => {
+    const dateConvert = (date: string) => {
         var convertTargetDate = new Date(date);
 
         return moment(convertTargetDate).format('YYYY-MM-DD HH:mm:ss');
@@ -171,10 +185,10 @@ function RankPrice(props:IRankPriceProps){
                     <SubTitleLine>
                     </SubTitleLine>
                     <Overview>
-                        <OverviewItem percentageValue={0}>
+                        <OverviewItemCurrency >
                             <span>CHANGE</span>
                             <span>USD</span>
-                        </OverviewItem>
+                        </OverviewItemCurrency>
                         <OverviewItem percentageValue={rankTickersData?.quotes?.USD?.percent_change_24h as number}>
                             <span>24H</span>
                             <span>{setSign(rankTickersData?.quotes?.USD?.percent_change_24h as number)}%</span>
@@ -185,14 +199,12 @@ function RankPrice(props:IRankPriceProps){
                         </OverviewItem>
                         <OverviewItem percentageValue={rankTickersData?.quotes?.USD?.percent_change_30d as number}>
                             <span>30D</span>
-                            <span>{setSign(rankTickersData?.quotes?.USD?.percent_change_30d as number )}%</span>
+                            <span>{setSign(rankTickersData?.quotes?.USD?.percent_change_30d as number)}%</span>
                         </OverviewItem>
                     </Overview>
-                </Tab>   
-            )} 
-       
+                </Tab>
+            )}
         </>
-        
     )
 }
 

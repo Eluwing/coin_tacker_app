@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SyntheticEvent} from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
+import CommonErrorPage from "../error/CommonErrorPage";
 
 const Container = styled.div`
     padding: 0px 20px;
@@ -54,13 +55,18 @@ const Img = styled.img`
 `;
 
 interface ICoin{
-    id: string;
-    name: string;
-    symbol: string;
-    rank: number;
-    is_new: boolean;
-    is_active: boolean;
+    id?: string;
+    name?: string;
+    symbol?: string;
+    rank?: number;
+    is_new?: boolean;
+    is_active?: boolean;
     type: string;
+    //Erorr Context
+    hard_limit?: string;
+    soft_limit?: string;
+    error?: string;
+    block_duration?: string;
 }
 
 interface ICoinsProps{
@@ -83,6 +89,14 @@ function Coins({toggleDark}:ICoinsProps){
     const imgLoadErr = (e:SyntheticEvent<HTMLImageElement>) =>{
         e.currentTarget.src = "https://www.nteeth.com/wp-content/uploads/2013/11/dummy-image-square1.jpg";
     }
+    const [ isSuccessGetData, setIsSuccessGetData] = useState<boolean>();
+    const [ errorContext, getErrorContext] = useState<ICoin|null>(null);
+    useEffect(()=>{
+        setIsSuccessGetData(Array.isArray(data));
+        if(!isSuccessGetData){
+            getErrorContext(data as unknown as ICoin);
+        }
+    },[data]);
 
     return(
         <Container>
@@ -99,23 +113,28 @@ function Coins({toggleDark}:ICoinsProps){
                 <Loader>Loading...</Loader>                
             ):(
                 <CoinsList>
-                {data?.slice(0,100).map((coin) => (
-                    <Coin key={coin.id}>
-                        <Link to={{
-                            pathname: `/${coin.id}`,
-                            state: { 
-                                    name: coin.name,    
-                                    rankInfoData: data?.slice(0,4)
-                                }
-                        }}>
-                            <Img 
-                                src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLocaleLowerCase()}`} 
-                                onError={imgLoadErr}
-                            />
-                            {coin.name}
-                        </Link>                        
-                    </Coin>
-                ))}
+                    {isSuccessGetData ?
+                        (
+                            data?.slice(0,100).map((coin) => (
+                                <Coin key={coin.id}>
+                                    <Link to={{
+                                        pathname: `/${coin.id}`,
+                                        state: { 
+                                                name: coin.name,
+                                                rankInfoData: data?.slice(0,4)
+                                            }
+                                    }}>
+                                        <Img 
+                                            src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol?.toLocaleLowerCase()}`} 
+                                            onError={imgLoadErr}
+                                        />
+                                        {coin.name}
+                                    </Link>                        
+                                </Coin>)) 
+                        ):(
+                            <CommonErrorPage error={errorContext as any}/>                             
+                        )
+                    }                               
                 </CoinsList>
             )}
         </Container>  
