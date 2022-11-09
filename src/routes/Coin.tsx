@@ -177,7 +177,11 @@ interface IRankItem{
   type:string;
 }
 
-function Coin() {
+interface ICoinsProps{
+  isDark:boolean;
+}
+
+function Coin({isDark}:ICoinsProps) {
   
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>();
@@ -219,8 +223,8 @@ function Coin() {
   const [ rankData, setRankData] = useState<IRankItem[]>([]);
 
   useEffect(()=>{
-    setRankData(state.rankInfoData);
-  },[state.rankInfoData])
+    setRankData(state?.rankInfoData);
+  },[state?.rankInfoData])
 
   return (
     <Container> 
@@ -278,11 +282,10 @@ function Coin() {
               <Price priceQuotesData={tickersData?.quotes.USD} rankInfoData={rankData}/>
             </Route>
             <Route path={`/:coinId/chart`}>
-              <Chart coinId={coinId}/>
+              <Chart isDark={isDark} coinId={coinId}/>
             </Route>
           </Switch>
-          <BackButton onClick={()=> history.push("/")}>back</BackButton>
-          
+          <BackButton onClick={()=> history.push("/")}>back</BackButton>          
         </>
       )}
     </Container>

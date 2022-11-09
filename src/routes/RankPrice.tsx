@@ -154,8 +154,6 @@ function RankPrice(props:IRankPriceProps){
         return moment(convertTargetDate).format('YYYY-MM-DD HH:mm:ss');
     }
 
-    console.log(rankTickersData);
-    
     return(
         <>
             {tickersDataLoading ? ("Rank Data Loading...") : (
