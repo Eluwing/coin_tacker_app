@@ -226,7 +226,7 @@ function Coin({isDark}:ICoinsProps) {
 
   useEffect(()=>{
     if(!Array.isArray(rankData)){
-      setRankData(state.rankInfoData);
+      setRankData(state?.rankInfoData);
       setIsError(true);
     }
     else{
@@ -300,12 +300,9 @@ function Coin({isDark}:ICoinsProps) {
         )}
       </Container>
     );
-
-
   }
-
   return (
-    isError? <CoinComponent />:<CommonErrorPage />
+    isError? <CommonErrorPage /> : <CoinComponent />
   );
 }
 export default Coin;
