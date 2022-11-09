@@ -21,5 +21,5 @@ https://eluwing.github.io/coin_tacker_app/
 
 ・if not found coin image to API, image is too large(Complete 22.10.23)  
 ・state management(useContext)  
-・error page(Especially when you can't get data from the API) Complete 22.11.04
+・error page(Especially when you can't get data from the API) Complete 22.11.04  
 ・code refactoring(Componentization)
