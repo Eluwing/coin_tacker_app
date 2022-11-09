@@ -5,6 +5,7 @@ import React from "react";
 
 interface ChartProps{
     coinId: string;
+    isDark: boolean;
 }
 
 interface IChart{
@@ -19,7 +20,7 @@ interface IChart{
 }
 
 
-function Chart({coinId}: ChartProps){
+function Chart({coinId, isDark}: ChartProps){
     const { isLoading: chartLoading, data: chartData} = useQuery<IChart[]>(["ohlcv",coinId], () => 
         fetchCoinHistory(coinId)     
     );
@@ -38,7 +39,7 @@ function Chart({coinId}: ChartProps){
                         ]}
                         options={{
                             theme:{
-                                mode: "dark",
+                                mode: isDark ? "dark":"light",
                             },
                             chart:{
                                 height: 500,

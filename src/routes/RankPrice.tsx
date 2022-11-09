@@ -168,7 +168,7 @@ function RankPrice(props: IRankPriceProps) {
         return moment(convertTargetDate).format('YYYY-MM-DD HH:mm:ss');
     }
 
-    return (
+    return(
         <>
             {tickersDataLoading ? ("Rank Data Loading...") : (
                 <Tab>
