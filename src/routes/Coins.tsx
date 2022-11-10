@@ -3,8 +3,10 @@ import { SyntheticEvent} from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
+import { isDarkAtom } from "../atoms";
 import CommonErrorPage from "../error/CommonErrorPage";
 
 const Container = styled.div`
@@ -70,10 +72,10 @@ interface ICoin{
 }
 
 interface ICoinsProps{
-    toggleDark: ()=>void;
+
 }
 
-function Coins({toggleDark}:ICoinsProps){
+function Coins(){
     // const [coins, setCoins] = useState<CoinInterface[]>([]);
     // const [loading, setLoading] = useState(true);
     // useEffect(()=>{
@@ -84,6 +86,9 @@ function Coins({toggleDark}:ICoinsProps){
     //         setLoading(false);
     //     })();
     // }, [])
+
+    const setDarkAtom = useSetRecoilState(isDarkAtom);
+    const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
 
     const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
     const imgLoadErr = (e:SyntheticEvent<HTMLImageElement>) =>{
@@ -107,7 +112,7 @@ function Coins({toggleDark}:ICoinsProps){
             </Helmet>
             <Header>
                 <Title>Coins</Title>
-                <button onClick={toggleDark}>Toggle Button</button>
+                <button onClick={toggleDarkAtom}>Toggle Button</button>
             </Header>
             {isLoading ? (
                 <Loader>Loading...</Loader>                

@@ -182,7 +182,7 @@ interface ICoinsProps{
   isDark:boolean;
 }
 
-function Coin({isDark}:ICoinsProps) {
+function Coin() {
   
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>();
@@ -291,7 +291,7 @@ function Coin({isDark}:ICoinsProps) {
                 <Price priceQuotesData={tickersData?.quotes.USD} rankInfoData={rankData}/>
               </Route>
               <Route path={`/:coinId/chart`}>
-                <Chart coinId={coinId} isDark={isDark}/>
+                <Chart coinId={coinId}/>
               </Route>
             </Switch>
             <BackButton onClick={()=> history.push("/")}>back</BackButton>

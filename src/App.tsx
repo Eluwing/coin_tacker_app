@@ -3,6 +3,8 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 import {ReactQueryDevtools} from "react-query/devtools";
 import Router from "./Router";
 import { darkTheme, lightTheme } from "./theme";
+import { isDarkAtom } from "./atoms";
+import { useRecoilValue } from "recoil";
 
 const GrobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@1,300&display=swap');
@@ -68,13 +70,12 @@ a{
 `;
 
 function App(){
-  const [isDark, setIsDark] = useState(true);
-  const toggleDark = () => setIsDark((current) => (!current));
+  const isDark = useRecoilValue(isDarkAtom);
   return(
     <>
       <ThemeProvider theme={isDark ? darkTheme:lightTheme}>
         <GrobalStyle />
-        <Router isDark={isDark} toggleDark={toggleDark}/>
+        <Router />
         <ReactQueryDevtools initialIsOpen={true}/>
       </ThemeProvider>      
     </>
