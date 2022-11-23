@@ -76,17 +76,6 @@ interface ICoinsProps{
 }
 
 function Coins(){
-    // const [coins, setCoins] = useState<CoinInterface[]>([]);
-    // const [loading, setLoading] = useState(true);
-    // useEffect(()=>{
-    //     (async() => {
-    //         const response = await fetch("https://api.coinpaprika.com/v1/coins")
-    //         const json = await response.json();
-    //         setCoins(json.slice(0,100));
-    //         setLoading(false);
-    //     })();
-    // }, [])
-
     const setDarkAtom = useSetRecoilState(isDarkAtom);
     const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
 
