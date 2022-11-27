@@ -132,7 +132,6 @@ interface PriceData {
 
 interface IRankPriceProps {
     rankCoinId: string;
-    targetCoinPrice: number;
 }
 
 function RankPrice(props: IRankPriceProps) {

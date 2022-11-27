@@ -1,6 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { rankDataState } from "../atoms";
 import RankPrice from "./RankPrice";
 
 interface ISign{
@@ -118,32 +120,26 @@ interface IMarketInfo{
 
 interface ICoinDataProps{
     priceQuotesData? : IMarketInfo;
-    rankInfoData? : IRankItem[];
 }
 
-interface IRankItem{
+interface ICoinRankId{
     id:string;
-    is_active:boolean;
-    is_new:boolean;
-    name:string;
-    rank:string; 
-    symbol:string;
-    type:string;
 }
 
 function Price(props:ICoinDataProps){
-    const [rankIdList, setRankIdList] = useState<any[]>([]);
+    const [rankIdList, setRankIdList] = useState<ICoinRankId[]>([]);
     const percentageErrorValue: number = -999;
+    const rankData = useRecoilValue(rankDataState);
     
-    const getRankIdList = (props: ICoinDataProps) => {
-        props.rankInfoData?.map((item:any)=>{
-            setRankIdList(prevArray => [...prevArray,item.id]);
+    const getRankIdList = () => {
+        rankData?.map((item:any)=>{
+            setRankIdList(oldArray => [...oldArray,item.id]);
         });
     }
     
     useEffect(()=>{  
-        getRankIdList(props);
-    },[props]);
+        getRankIdList();
+    },[]);
 
     const priceCalculate = (percentage:number) => {
         let resultPrice = 0;
@@ -193,7 +189,7 @@ function Price(props:ICoinDataProps){
             return propsValue.toFixed(0);
         }
     }
-
+    
     return(
         <>
             <Container>
@@ -231,12 +227,12 @@ function Price(props:ICoinDataProps){
             </Container>
             <Container>
                 <Tabs>
-                    <RankPrice rankCoinId={rankIdList[0]} targetCoinPrice={props.priceQuotesData?.price || percentageErrorValue} />
-                    <RankPrice rankCoinId={rankIdList[1]} targetCoinPrice={props.priceQuotesData?.price || percentageErrorValue} />
+                    <RankPrice rankCoinId={rankIdList[0]?.id} />
+                    <RankPrice rankCoinId={rankIdList[1]?.id} />
                 </Tabs>
                 <Tabs>
-                    <RankPrice rankCoinId={rankIdList[2]} targetCoinPrice={props.priceQuotesData?.price || percentageErrorValue} />
-                    <RankPrice rankCoinId={rankIdList[3]} targetCoinPrice={props.priceQuotesData?.price || percentageErrorValue} />
+                    <RankPrice rankCoinId={rankIdList[2]?.id} />
+                    <RankPrice rankCoinId={rankIdList[3]?.id} />
                 </Tabs>
             </Container>
             

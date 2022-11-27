@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
-import { isDarkAtom } from "../atoms";
+import { isDarkAtom, rankDataState } from "../atoms";
 import CommonErrorPage from "../error/CommonErrorPage";
 
 const Container = styled.div`
@@ -64,31 +64,35 @@ interface ICoin{
     is_new?: boolean;
     is_active?: boolean;
     type: string;
-    //Erorr Context
+
+}
+
+interface ICoinError extends ICoin{
     hard_limit?: string;
     soft_limit?: string;
     error?: string;
     block_duration?: string;
 }
 
-interface ICoinsProps{
-
-}
-
 function Coins(){
     const setDarkAtom = useSetRecoilState(isDarkAtom);
     const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
-
+    const setRankData = useSetRecoilState(rankDataState);
     const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
     const imgLoadErr = (e:SyntheticEvent<HTMLImageElement>) =>{
         e.currentTarget.src = "https://www.nteeth.com/wp-content/uploads/2013/11/dummy-image-square1.jpg";
     }
     const [ isSuccessGetData, setIsSuccessGetData] = useState<boolean>();
-    const [ errorContext, getErrorContext] = useState<ICoin|null>(null);
+    const [ errorContext, setErrorContext] = useState<ICoinError[]>();
+
+    const onCoinsLink = () => {
+        setRankData(data?.slice(0,4) || []);
+    };
+
     useEffect(()=>{
         setIsSuccessGetData(Array.isArray(data));
         if(!isSuccessGetData){
-            getErrorContext(data as unknown as ICoin);
+            setErrorContext(data);
         }
     },[data]);
 
@@ -111,13 +115,15 @@ function Coins(){
                         (
                             data?.slice(0,100).map((coin) => (
                                 <Coin key={coin.id}>
-                                    <Link to={{
-                                        pathname: `/${coin.id}`,
-                                        state: { 
-                                                name: coin.name,
-                                                rankInfoData: data?.slice(0,4)
-                                            }
-                                    }}>
+                                    <Link 
+                                        onClick={onCoinsLink}
+                                        to={{
+                                            pathname: `/${coin.id}`,
+                                            state: { 
+                                                    name: coin.name,
+                                                },
+                                        }}                                    
+                                    >
                                         <Img 
                                             src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol?.toLocaleLowerCase()}`} 
                                             onError={imgLoadErr}
