@@ -119,7 +119,7 @@ function Coins(){
                                             }
                                     }}>
                                         <Img 
-                                            src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol?.toLocaleLowerCase()}`} 
+                                            src={`https://farisaziz12.github.io/cryptoicon-api/icons/${coin.symbol?.toLocaleLowerCase()}.png`} 
                                             onError={imgLoadErr}
                                         />
                                         {coin.name}
