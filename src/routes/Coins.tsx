@@ -17,7 +17,7 @@ const Header = styled.header`
     height: 10vh;
     display: flex;
     justify-content: center;
-    align-itmes: center;
+    align-items: center;
 `
 
 const CoinsList = styled.ul``;
@@ -69,10 +69,6 @@ interface ICoin{
     soft_limit?: string;
     error?: string;
     block_duration?: string;
-}
-
-interface ICoinsProps{
-
 }
 
 function Coins(){

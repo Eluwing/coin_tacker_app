@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import {ReactQueryDevtools} from "react-query/devtools";
 import Router from "./Router";
@@ -56,7 +56,7 @@ table {
   border-spacing: 0;
 }
 *{
-  box-sizeing: border-box;
+  box-Sizing: border-box;
 }
 body{
   font-family: 'Source Sans Pro', sans-serif;

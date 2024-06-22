@@ -178,10 +178,6 @@ interface IRankItem{
   type:string;
 }
 
-interface ICoinsProps{
-  isDark:boolean;
-}
-
 function Coin() {
   
   const { coinId } = useParams<RouteParams>();
