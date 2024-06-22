@@ -56,7 +56,7 @@ const Img = styled.img`
     height:128px;
 `;
 
-const ToggleButton = styled.button<{ isLightMode: boolean }>`
+const ToggleButton = styled.button`
     border: 0;
     width: 80px;
     height: 30px;
@@ -123,7 +123,7 @@ function Coins(){
             <Header>
                 <Title>Coins</Title>
 
-                    <ToggleButton isLightMode={isLightMode} onClick={toggleLightAtom}>
+                    <ToggleButton onClick={toggleLightAtom}>
                         <InnerButton isLightMode={isLightMode} />
                     </ToggleButton>
 
