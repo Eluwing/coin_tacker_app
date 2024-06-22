@@ -9,6 +9,8 @@ declare module 'styled-components'{
         negativeColor: string;
         tabBgColor: string;
         cardBgColor: string;
+        toggleBorder: string;
+        toggleInner: string;
     }
 
 }

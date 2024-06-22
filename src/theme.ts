@@ -8,6 +8,8 @@ export const darkTheme:DefaultTheme = {
     negativeColor: "#ff3f34", 
     tabBgColor:"rgba(0, 0, 0, 0.5)",
     cardBgColor: "transparent",
+    toggleBorder: 'rgba(255,255,255,1)',
+    toggleInner: '#333',
 }
 
 export const lightTheme:DefaultTheme = {
@@ -18,4 +20,6 @@ export const lightTheme:DefaultTheme = {
     negativeColor: "#ff3f34", 
     tabBgColor:"rgba(0, 0, 0, 0.5)",
     cardBgColor: "white",
+    toggleBorder: '#333',
+    toggleInner: '#fff',
 }
