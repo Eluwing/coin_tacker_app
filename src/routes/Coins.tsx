@@ -66,7 +66,7 @@ const ToggleButton = styled.button<{ isLightMode: boolean }>`
     right: -1%;
     transform: translate(-50%, -50%);
     cursor: pointer;
-    background: ${( props ) => (props.isLightMode ? '#333' : 'rgba(255,255,255,1)')};
+    background: ${( props ) => (props.theme.toggleBorder)};
     transition: 0.4s ease-in-out;
 `;
 
@@ -76,7 +76,7 @@ const InnerButton = styled.div<{ isLightMode: boolean }>`
     border-radius: 50%;
     transition: 0.4s ease-in-out;
     margin-left: ${(props) => (props.isLightMode ? '40px' : '3px')};
-    background: ${(props) => (props.isLightMode ? '#fff' : '#333')};
+    background: ${(props) => (props.theme.toggleInner)};
 `;
 
 interface ICoin{
