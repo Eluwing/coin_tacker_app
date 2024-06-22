@@ -3,7 +3,7 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 import {ReactQueryDevtools} from "react-query/devtools";
 import Router from "./Router";
 import { darkTheme, lightTheme } from "./theme";
-import { isDarkAtom } from "./atoms";
+import { isLightAtom } from "./atoms";
 import { useRecoilValue } from "recoil";
 
 const GrobalStyle = createGlobalStyle`
@@ -70,10 +70,10 @@ a{
 `;
 
 function App(){
-  const isDark = useRecoilValue(isDarkAtom);
+  const isLight = useRecoilValue(isLightAtom);
   return(
     <>
-      <ThemeProvider theme={isDark ? darkTheme:lightTheme}>
+      <ThemeProvider theme={isLight ? lightTheme:darkTheme}>
         <GrobalStyle />
         <Router />
         <ReactQueryDevtools initialIsOpen={true}/>
