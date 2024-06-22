@@ -76,7 +76,7 @@ function App(){
       <ThemeProvider theme={isLight ? lightTheme:darkTheme}>
         <GrobalStyle />
         <Router />
-        <ReactQueryDevtools initialIsOpen={true}/>
+        {/* <ReactQueryDevtools initialIsOpen={true}/> */}
       </ThemeProvider>      
     </>
   );
