@@ -1,5 +1,5 @@
 # 暗号通貨トラッカアプリ
-![image](https://github.com/Eluwing/netflix_clone_app/assets/19554478/21a4d04b-6801-4695-a63a-8e74a1781ffb)
+![image](https://github.com/Eluwing/coin_tacker_app/assets/19554478/1b9ab41f-f950-4fb4-9516-ba393a4f0cb2)
 
 ## 開発理由
 業務内で初めて経験したReactの振り返り/業務知識を深めるために実装したアプリになります。
