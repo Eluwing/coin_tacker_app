@@ -3,10 +3,10 @@ import { SyntheticEvent} from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
-import { isDarkAtom } from "../atoms";
+import { isLightAtom } from "../atoms";
 import CommonErrorPage from "../error/CommonErrorPage";
 
 const Container = styled.div`
@@ -56,6 +56,29 @@ const Img = styled.img`
     height:128px;
 `;
 
+const ToggleButton = styled.button<{ isLightMode: boolean }>`
+    border: 0;
+    width: 80px;
+    height: 30px;
+    border-radius: 20px;
+    position: absolute;
+    top: 5%;
+    right: -1%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    background: ${( props ) => (props.theme.toggleBorder)};
+    transition: 0.4s ease-in-out;
+`;
+
+const InnerButton = styled.div<{ isLightMode: boolean }>`
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    transition: 0.4s ease-in-out;
+    margin-left: ${(props) => (props.isLightMode ? '40px' : '3px')};
+    background: ${(props) => (props.theme.toggleInner)};
+`;
+
 interface ICoin{
     id?: string;
     name?: string;
@@ -72,8 +95,11 @@ interface ICoin{
 }
 
 function Coins(){
-    const setDarkAtom = useSetRecoilState(isDarkAtom);
-    const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
+    const isLightMode = useRecoilValue(isLightAtom);
+    const setLightAtom = useSetRecoilState(isLightAtom);
+    const toggleLightAtom = () => {
+        setLightAtom((prev) => !prev);
+    }
 
     const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
     const imgLoadErr = (e:SyntheticEvent<HTMLImageElement>) =>{
@@ -87,7 +113,6 @@ function Coins(){
             getErrorContext(data as unknown as ICoin);
         }
     },[data]);
-
     return(
         <Container>
             <Helmet>
@@ -97,7 +122,11 @@ function Coins(){
             </Helmet>
             <Header>
                 <Title>Coins</Title>
-                <button onClick={toggleDarkAtom}>Toggle Button</button>
+
+                    <ToggleButton isLightMode={isLightMode} onClick={toggleLightAtom}>
+                        <InnerButton isLightMode={isLightMode} />
+                    </ToggleButton>
+
             </Header>
             {isLoading ? (
                 <Loader>Loading...</Loader>                
