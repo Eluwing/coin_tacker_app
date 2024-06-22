@@ -1,25 +1,59 @@
-## install list
+# 暗号通貨トラッカアプリ
+![image](https://github.com/Eluwing/netflix_clone_app/assets/19554478/21a4d04b-6801-4695-a63a-8e74a1781ffb)
 
-npm i styled-components  
-npm install --save typescript @types/node @types/react @types/react-dom @types/jest  
-npm i --save-dev @types/styled-components  
-npm i react-router-dom  
-npm i --save-dev @types/react-router-dom  
-npm i react-router-dom react-query  
-npm i --save-dev @types/react-router-dom react-query  
-npm i react-query  
-npm install --save react-apexcharts apexcharts  
-npm i react-helmet  
-npm i --save-dev @types/react-helmet  
-npm i moment @types/moment  
-npm i --save-dev @types/node  
+## 開発理由
+業務内で初めて経験したReactの振り返り/業務知識を深めるために実装したアプリになります。
 
-## Test URL(git pages)
+当時には暗号通貨が話題になり
+暗号通貨の値段などの情報を見れるアプリがあればと思いに作り始めました。
+
+## 利用技術
+
+### フロントエンド
+
+| 技術         | バージョン  |
+|--------------|-------------|
+| React        | [18.2.0] |
+| TypeScript | [4.9.4] |
+| react-router-dom | [5.3.3] |
+| styled-components        | [5.3.5] |
+| react-query      | [3.39.2] |
+| react-query/devtools      | [3.39.2] |
+| moment      | [2.29.4] |
+| recoil     | [0.7.6] |
+| react-apexcharts     | [1.4.0] |
+| react-helmet     | [6.1.0] |
+
+### その他
+
+| 技術         | バージョン  | 説明  |
+|--------------|-------------|-------------|
+| coinpaprika      | なし | 暗号通貨の詳細情報は以下のAPIから情報を取得しています。<br>URL：https://api.coinpaprika.com/v1 |
+| cryptoicon-api      | なし | アイコンは以下のAPIからイメージのURLを取得しています。<br>URL：https://github.com/farisaziz12/cryptoicon-api |
+
+## 画面一覧
+- 暗号通貨通貨リスト（メイン）
+- 暗号通貨詳細情報
+
+## 機能一覧(共通)
+- ダーク/ファイトモード
+- コインリスト表示
+- コイン詳細情報
+　- 基本情報表示
+   - 現在ランク、値段、通貨説明、トータル供給、最大供給
+  - チャート表示
+  - 値段詳細情報
+    - 最大値段/現在値段と比較（パーセンテージ）
+    - 一日前値段/現在値段と比較（パーセンテージ)
+    - 1週前値段/現在値段と比較（パーセンテージ)
+    - 1か月前値段/現在値段と比較（パーセンテージ)
+    - ランク1~4位暗号通貨表示
+      -　通貨種類 
+      - 最大値段/現在値段と比較（パーセンテージ）
+      - 一日前値段/現在値段と比較（パーセンテージ)
+      - 1週前値段/現在値段と比較（パーセンテージ)
+      - 1か月前値段/現在値段と比較（パーセンテージ)
+  - 戻るボタン
+    
+## デモ  
 https://eluwing.github.io/coin_tacker_app/
-
-## ToDo List
-
-・if not found coin image to API, image is too large(Complete 22.10.23)  
-・state management(useContext)  
-・error page(Especially when you can't get data from the API) Complete 22.11.04  
-・code refactoring(Componentization)
